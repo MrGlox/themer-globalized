@@ -748,3 +748,8 @@ function removeDuplicatesBy(keyFn, array) {
       return isNew;
     });
   }
+
+figma.on("selectionchange", () => { console.log("changed") })
+console.log("before")
+figma.currentPage.selection = []
+console.log("after")
