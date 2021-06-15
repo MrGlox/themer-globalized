@@ -1435,7 +1435,7 @@
   }
 
   .fill {
-    height: calc(100% - 49px);
+    height: calc(100% - 77px);
   }
 
   .v-center {
@@ -1773,17 +1773,33 @@
         </div>
 
         <!-- Action footer -->
-
-        <footer class="footer pr8 pl8">
-          <select name="applyTo" id="applyTo" class="select-menu">
-            <option value="selection" selected="selected">
-              Apply to selection
-            </option>
-            <option value="page">Apply to page</option>
-          </select>
-          <button id="applyTheme" class="button button--primary ml8" disabled>
-            Apply
-          </button>
+        <footer
+          class="footer pr8 pl8"
+          style="display: flex; flex-direction: column; height: 77px"
+        >
+          <div>
+            <div class="switch ml4 mt4">
+              <input
+                class="switch__toggle"
+                type="checkbox"
+                id="applyWhenSelection"
+              />
+              <label class="switch__label" for="applyWhenSelection">
+                Apply style when selection
+              </label>
+            </div>
+          </div>
+          <div style="display: flex; flex-direction: row; margin-bottom: 8px">
+            <select name="applyTo" id="applyTo" class="select-menu">
+              <option value="selection" selected="selected">
+                Apply to selection
+              </option>
+              <option value="page">Apply to page</option>
+            </select>
+            <button id="applyTheme" class="button button--primary ml8" disabled>
+              Apply
+            </button>
+          </div>
         </footer>
       </div>
 
@@ -1858,17 +1874,6 @@
                   placeholder="Leave empty to auto-generate"
                 />
               </div>
-            </div>
-
-            <div class="switch ml4 mt4">
-              <input
-                class="switch__toggle"
-                type="checkbox"
-                id="applyWhenSelection"
-              />
-              <label class="switch__label" for="applyWhenSelection">
-                Apply style when selection
-              </label>
             </div>
           </div>
 
@@ -2646,10 +2651,15 @@
   }
 
   // APPLY THEME
-
   applyButton.addEventListener('click', function (event) {
     let selectedThemeItem = document.querySelector('.themes__item--selected');
     let selectedTheme = selectedThemeItem.getAttribute('theme');
+
+    if (applyTo.value) {
+      applyButton.disabled = true;
+    } else {
+      applyButton.disabled = false;
+    }
 
     if (selectedTheme) {
       //send msg to plugin
