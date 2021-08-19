@@ -803,8 +803,7 @@ function applyWhenSelection(value) {
 }
 
 figma.on('selectionchange', () => {
-  console.log(triggerApplyWhenSelection);
   if (!triggerApplyWhenSelection) return false;
-
   applyTheme('selection');
+  figma.ui.hide();
 });

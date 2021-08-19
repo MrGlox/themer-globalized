@@ -35,6 +35,22 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __read = (this && this.__read) || function (o, n) {
+    var m = typeof Symbol === "function" && o[Symbol.iterator];
+    if (!m) return o;
+    var i = m.call(o), r, ar = [], e;
+    try {
+        while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
+    }
+    catch (error) { e = { error: error }; }
+    finally {
+        try {
+            if (r && !r.done && (m = i["return"])) m.call(i);
+        }
+        finally { if (e) throw e.error; }
+    }
+    return ar;
+};
 var __spreadArray = (this && this.__spreadArray) || function (to, from) {
     for (var i = 0, il = from.length, j = to.length; i < il; i++, j++)
         to[j] = from[i];
@@ -509,7 +525,7 @@ function styleName(name) {
 }
 // count number of themes being added
 function countNewThemes() {
-    var themes = __spreadArray([], new Set(cleanedStyleData.map(function (style) { return style.theme; })));
+    var themes = __spreadArray([], __read(new Set(cleanedStyleData.map(function (style) { return style.theme; }))));
     newThemeCount = themes.length;
 }
 // clean existing data from style creation process to make sure arrays are empty
@@ -563,9 +579,9 @@ function applyTheme(applyTo) {
     }
     if (nodes) {
         figma.notify('Applying theme...', { timeout: 1000 });
-        var colorStyles = __spreadArray([], new Set(jsonBinData.map(function (style) { return style.theme === selectedTheme && style.type === 'PAINT'; })));
-        var textStyles = __spreadArray([], new Set(jsonBinData.map(function (style) { return style.theme === selectedTheme && style.type === 'TEXT'; })));
-        var effectStyles = __spreadArray([], new Set(jsonBinData.map(function (style) { return style.theme === selectedTheme && style.type === 'EFFECT'; })));
+        var colorStyles = __spreadArray([], __read(new Set(jsonBinData.map(function (style) { return style.theme === selectedTheme && style.type === 'PAINT'; }))));
+        var textStyles = __spreadArray([], __read(new Set(jsonBinData.map(function (style) { return style.theme === selectedTheme && style.type === 'TEXT'; }))));
+        var effectStyles = __spreadArray([], __read(new Set(jsonBinData.map(function (style) { return style.theme === selectedTheme && style.type === 'EFFECT'; }))));
         //if the theme contains color styles
         //iterate through all nodes to find color styles that match
         if (colorStyles) {
@@ -859,8 +875,8 @@ function applyWhenSelection(value) {
     triggerApplyWhenSelection = value;
 }
 figma.on('selectionchange', function () {
-    console.log(triggerApplyWhenSelection);
     if (!triggerApplyWhenSelection)
         return false;
     applyTheme('selection');
+    figma.ui.hide();
 });
